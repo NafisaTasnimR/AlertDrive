@@ -39,10 +39,7 @@ ENV/
 *.code-workspace
 
 # Data files (too large for git)
-data/raw/**/*.mp4
-data/raw/**/*.avi
-data/raw/**/*.mov
-data/raw/**/*.mkv
+data/
 *.h5
 *.hdf5
 *.pkl
