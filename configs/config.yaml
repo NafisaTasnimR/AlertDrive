@@ -1,0 +1,61 @@
+# AlertDrive Configuration File
+
+project:
+  name: "AlertDrive"
+  version: "0.1.0"
+  random_seed: 42
+
+data:
+  raw_path: "data/raw"
+  processed_path: "data/processed"
+  interim_path: "data/interim"
+  train_split: 0.7
+  val_split: 0.15
+  test_split: 0.15
+
+preprocessing:
+  video:
+    fps: 30
+    frame_size: [224, 224]
+    normalize: true
+  augmentation:
+    enabled: true
+    rotation_range: 10
+    width_shift_range: 0.1
+    height_shift_range: 0.1
+    horizontal_flip: true
+
+training:
+  batch_size: 32
+  epochs: 50
+  learning_rate: 0.001
+  optimizer: "adam"
+  early_stopping:
+    enabled: true
+    patience: 10
+    monitor: "val_loss"
+
+models:
+  baseline:
+    - name: "model_1"
+      type: "cnn"
+    - name: "model_2"
+      type: "lstm"
+  custom:
+    name: "custom_model"
+    type: "hybrid"
+
+evaluation:
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1_score
+    - roc_auc
+  save_confusion_matrix: true
+  save_roc_curve: true
+
+logging:
+  log_dir: "logs"
+  tensorboard_dir: "logs/tensorboard"
+  mlflow_tracking: false
