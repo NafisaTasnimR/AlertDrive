@@ -42,8 +42,31 @@ models:
     - name: "model_2"
       type: "lstm"
   custom:
-    name: "custom_model"
+    name: "cnn_lstm"
     type: "hybrid"
+    cnn_lstm:
+      # Model architecture
+      num_classes: 2
+      hidden_size: 128
+      num_layers: 1
+      dropout: 0.3
+      freeze_cnn: false
+      
+      # Sequence parameters
+      sequence_length: 10
+      overlap: 0.5
+      
+      # Training parameters
+      batch_size: 8
+      num_epochs: 50
+      learning_rate: 0.001
+      weight_decay: 0.00001
+      num_workers: 4
+      patience: 10
+      
+      # Paths
+      save_dir: "trained_models/custom"
+      log_dir: "logs/cnn_lstm"
 
 evaluation:
   metrics:

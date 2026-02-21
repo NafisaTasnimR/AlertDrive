@@ -1,7 +1,30 @@
+# Core scientific computing
 numpy
 pandas
-matplotlib
+
+# Machine Learning frameworks
 scikit-learn
-opencv-python
 tensorflow
 keras
+
+# PyTorch (for CNN-LSTM model)
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Computer Vision
+opencv-python
+Pillow
+
+# Visualization
+matplotlib
+seaborn
+
+# Utilities
+tqdm
+pyyaml
+
+# Logging and monitoring
+tensorboard
+
+# Optional (for better performance)
+# pillow-simd  # Faster image processing (replaces Pillow)
