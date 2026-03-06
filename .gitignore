@@ -52,6 +52,9 @@ trained_models/**/*.pb
 trained_models/**/*.ckpt
 trained_models/**/*.weights
 
+trained_model/
+*.pth
+
 # Logs
 logs/**/*.log
 *.log

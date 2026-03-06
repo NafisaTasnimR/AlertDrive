@@ -5,6 +5,7 @@ import os
 
 from src.models.baseline.hf_cnn_resnet import HFCNNResNet
 from src.preprocessing.hf_dataloader import get_dataloaders
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Initialize model
