@@ -29,7 +29,7 @@ class CNN_LSTM(nn.Module):
         num_classes=2, 
         hidden_size=128, 
         num_layers=1,
-        dropout=0.3,
+        dropout=0.5,
         freeze_cnn=False
     ):
         super(CNN_LSTM, self).__init__()
@@ -50,6 +50,9 @@ class CNN_LSTM(nn.Module):
         # MobileNetV2 output channels
         self.cnn_output_size = 1280
         
+        # Add dropout after CNN feature extraction
+        self.cnn_dropout = nn.Dropout(0.4)
+        
         # LSTM for temporal modeling
         self.lstm = nn.LSTM(
             input_size=self.cnn_output_size,
@@ -59,8 +62,9 @@ class CNN_LSTM(nn.Module):
             dropout=dropout if num_layers > 1 else 0
         )
         
-        # Classifier head
-        self.dropout = nn.Dropout(dropout)
+        # Classifier head with multiple dropout layers
+        self.dropout1 = nn.Dropout(dropout)
+        self.dropout2 = nn.Dropout(dropout * 0.7)  # Additional dropout layer
         self.fc = nn.Linear(hidden_size, num_classes)
         
         # Store hyperparameters
@@ -97,6 +101,9 @@ class CNN_LSTM(nn.Module):
         # (batch, seq_len, cnn_output_size)
         x = x.view(batch_size, seq_len, -1)
         
+        # Apply dropout after CNN features
+        x = self.cnn_dropout(x)
+        
         # Process temporal sequence with LSTM
         # lstm_out: (batch, seq_len, hidden_size)
         lstm_out, (h_n, c_n) = self.lstm(x)
@@ -105,8 +112,9 @@ class CNN_LSTM(nn.Module):
         # (batch, hidden_size)
         last_output = lstm_out[:, -1, :]
         
-        # Apply dropout and classify
-        x = self.dropout(last_output)
+        # Apply multiple dropout layers and classify
+        x = self.dropout1(last_output)
+        x = self.dropout2(x)  # Additional dropout for stronger regularization
         out = self.fc(x)
         
         return out
@@ -143,9 +151,9 @@ class CNN_LSTM(nn.Module):
 
 def create_cnn_lstm(
     num_classes=2,
-    hidden_size=128,
+    hidden_size=64,
     num_layers=1,
-    dropout=0.3,
+    dropout=0.5,
     freeze_cnn=False,
     device='cuda' if torch.cuda.is_available() else 'cpu'
 ):
