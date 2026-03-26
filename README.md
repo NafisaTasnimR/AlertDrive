@@ -74,21 +74,15 @@ pip install -r requirements.txt
 ## Evaluation Metrics
 
 - Accuracy
-- Precision
-- Recall
-- F1 Score
 - Confusion Matrix
 - ROC-AUC
-- Processing Time
 
-## Usage
-
-(To be filled in during implementation)
 
 ## Contributors
 
-(Add your team members)
+Sanjana Afreen
+Adrita Ahsan
+Nishat Tasneem Oishee
+Nafisa Tasnim Rodoshi
+Jarin Subha Sneha
 
-## License
-
-(Add license information)
