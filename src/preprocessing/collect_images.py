@@ -2,11 +2,11 @@ import os
 import shutil
 
 RAW_BASE = "data/raw/Multi class/train"
-OUT_BASE = "data/interim/images"
+OUT_BASE = "data/interim/faces"
 
 os.makedirs(OUT_BASE, exist_ok=True)
 
-# ---- DROWSY (multiple subfolders) ----
+# ---- DROWSY (preserve original filenames) ----
 drowsy_out = os.path.join(OUT_BASE, "drowsy")
 os.makedirs(drowsy_out, exist_ok=True)
 
@@ -15,10 +15,11 @@ for sub in os.listdir(drowsy_path):
     sub_path = os.path.join(drowsy_path, sub)
     for img in os.listdir(sub_path):
         src = os.path.join(sub_path, img)
-        dst = os.path.join(drowsy_out, f"{sub}_{img}")
+        # Keep original filename - don't add action prefix
+        dst = os.path.join(drowsy_out, img)
         shutil.copy(src, dst)
 
-# ---- NOT DROWSY ----
+# ---- NOT DROWSY (unchanged) ----
 notdrowsy_out = os.path.join(OUT_BASE, "notdrowsy")
 os.makedirs(notdrowsy_out, exist_ok=True)
 
